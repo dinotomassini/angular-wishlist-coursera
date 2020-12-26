@@ -14,7 +14,7 @@ export class DestinoViajeComponent implements OnInit {
   // NO UTILIZO EL HOSTBINDING PORQUE LO RESOLVI DE OTRA FORMA, A MI ENTENDER MAS FACILE
   // IGUAL LO DEJO AGREGADO PARA IR SIGUIENDO PASO A PASO Y
   // POR SI EN EL TRABAJO ES NECESARIO QUE ESTE
-  // @HostBinding('attr.class') cssClass = 'col-md-4';
+  @HostBinding('attr.class') cssClass = 'mb-3';
 
   constructor() {
   }
