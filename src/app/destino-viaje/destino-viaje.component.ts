@@ -1,25 +1,32 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { DestinoViaje } from '../models/destino-viaje.model';
-
+import {
+  Component,
+  OnInit,
+  Input,
+  HostBinding,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { DestinoViaje } from "../models/destino-viaje.model";
 
 @Component({
-  selector: 'app-destino-viaje',
-  templateUrl: './destino-viaje.component.html',
-  styleUrls: ['./destino-viaje.component.css']
+  selector: "app-destino-viaje",
+  templateUrl: "./destino-viaje.component.html",
+  styleUrls: ["./destino-viaje.component.css"],
 })
 export class DestinoViajeComponent implements OnInit {
-
   @Input() destino: DestinoViaje;
-  // IMPORTANTE LEER
-  // NO UTILIZO EL HOSTBINDING PORQUE LO RESOLVI DE OTRA FORMA, A MI ENTENDER MAS FACILE
-  // IGUAL LO DEJO AGREGADO PARA IR SIGUIENDO PASO A PASO Y
-  // POR SI EN EL TRABAJO ES NECESARIO QUE ESTE
-  @HostBinding('attr.class') cssClass = 'mb-3';
+  @Input() position: number;
+  @Output() clicked: EventEmitter<DestinoViaje>;
+  @HostBinding("attr.class") cssClass = "mb-3";
 
   constructor() {
+    this.clicked = new EventEmitter();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
+  ir() {
+    this.clicked.emit(this.destino);
+    return false;
+  }
 }

@@ -1,12 +1,26 @@
-
-<div class="card" style="max-width: 20rem;">
+<div class="card" style="max-width: 20rem">
   <div class="card-img">
-    <img src="https://placeimg.com/400/280/nature" class="card-img-top">
+    <img src="https://placeimg.com/400/280/nature" class="card-img-top" />
+    <span class="badge rounded-pill bg-warning">
+      {{ position }}
+    </span>
   </div>
   <div class="card-body">
     <h5 class="card-title">{{ destino.lugar.toUpperCase() }}</h5>
-    <p class="card-text">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error, tempore id laudantium aspernatur fugiat distinctio nihil quasi voluptas veritatis doloribus, totam facilis perspiciatis. Fuga rerum, vel dicta ullam architecto quod?
-    </p>
+    <p class="card-text">Servicios</p>
+    <ul>
+      <li *ngFor="let servicio of destino.servicios">
+        <span [ngSwitch]="servicio">
+          <i *ngSwitchCase="'desayuno'" style="color: red">{{ servicio }}</i>
+          <i *ngSwitchCase="'wifi'" style="color: green">{{ servicio }}</i>
+          <i *ngSwitchDefault>{{ servicio }}</i>
+        </span>
+      </li>
+    </ul>
+    <button class="btn btn-success" (click)="ir()">Ir!</button>
+    <span *ngIf="destino.isSelected()">
+      <span ngNonBindable>{{ PREFERIDO }}</span>
+    </span>
+    <a [routerLink]="['/destino']">Ver Detalle</a>
   </div>
 </div>
