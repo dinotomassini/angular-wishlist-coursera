@@ -1,8 +1,6 @@
 <form
   [formGroup]="fg"
-  (ngSubmit)="
-    guardar(fg.controls['lugar'].value, fg.controls['urlImage'].value)
-  "
+  (ngSubmit)="guardar(fg.controls['lugar'].value, fg.controls['urlImage'].value)"
 >
   <div class="form-group">
     <input
@@ -13,6 +11,10 @@
       placeholder="Ingrese el lugar"
       [formControl]="fg.controls['lugar']"
     />
+    <!-- <div *ngIf="!fg.controls['lugar'].valid">Lugar invalido!</div> -->
+    <div *ngIf="fg.controls['lugar'].hasError('required')">Lugar requerido!</div>
+    <!-- <div *ngIf="fg.controls['lugar'].hasError('invalidLugar')">Lugar invalido!</div> -->
+    <div *ngIf="fg.controls['lugar'].hasError('minLongLugar')">Lugar debe tener al menos {{minLongitud}} de largo!</div>
   </div>
   <div class="form-group">
     <input
@@ -23,9 +25,10 @@
       placeholder="Ingrese la URL de la imagen"
       [formControl]="fg.controls['urlImage']"
     />
+    <div *ngIf="fg.controls['urlImage'].hasError('required')">Url de la imagen requerido!</div>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" *ngIf="fg.valid">
       <!--(click)="guardar(lugar.value, urlImage.value)"-->
       Agregar
     </button>
