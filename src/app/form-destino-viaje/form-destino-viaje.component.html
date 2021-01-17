@@ -11,6 +11,11 @@
       placeholder="Ingrese el lugar"
       [formControl]="fg.controls['lugar']"
     />
+    <div>
+      <ul>
+        <li *ngFor="let result of searchResults;">{{result}}</li>
+      </ul>
+    </div>
     <!-- <div *ngIf="!fg.controls['lugar'].valid">Lugar invalido!</div> -->
     <div *ngIf="fg.controls['lugar'].hasError('required')">Lugar requerido!</div>
     <!-- <div *ngIf="fg.controls['lugar'].hasError('invalidLugar')">Lugar invalido!</div> -->
