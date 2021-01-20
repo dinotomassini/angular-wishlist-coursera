@@ -13,8 +13,8 @@ import { FormDestinoViajeComponent } from "./form-destino-viaje/form-destino-via
 import { DestinosApiClient } from "./models/destinos-api-client-model";
 import { 
   DestinosViajesState, 
-  initializeDestinoViajesState,
-  reducerDestionsViajes,
+  initializeDestinosViajesState,
+  reducerDestinosViajes,
   DestinosViajesEffects 
 } from "./models/destino-viajes-state.model";
 
@@ -40,11 +40,11 @@ export interface AppState {
 }
 
 const reducers: ActionReducerMap<AppState> = {
-  destinos: reducerDestionsViajes
+  destinos: reducerDestinosViajes
 };
 
 const reducersInitialState = {
-  destinos: initializeDestinoViajesState()
+  destinos: initializeDestinosViajesState()
 };
 // fin redux init
 
@@ -62,7 +62,13 @@ const reducersInitialState = {
     RouterModule.forRoot(routes), //registra las rutas
     FormsModule, //agregar un formulario
     ReactiveFormsModule,
-    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState}),
+    NgRxStoreModule.forRoot(reducers, { 
+      initialState: reducersInitialState,
+      runtimeChecks: {
+        strictActionImmutability: false,
+        strictStateImmutability: false
+      }
+    }),
     EffectsModule.forRoot([DestinosViajesEffects])
   ],
   providers: [DestinosApiClient],

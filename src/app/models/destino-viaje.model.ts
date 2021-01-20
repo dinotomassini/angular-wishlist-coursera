@@ -9,11 +9,11 @@ export class DestinoViaje {
     this.servicios = ["desayuno", "wifi", "parking"];
   }
 
-  isSelected() {
+  isSelected(): boolean {
     return this.selected;
   }
 
-  setSelected(valor: boolean) {
+  setSelected(valor: boolean): void {
     this.selected = valor;
   }
 }
