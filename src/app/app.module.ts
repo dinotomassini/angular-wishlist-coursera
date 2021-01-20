@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from "./app.component";
 import { DestinoViajeComponent } from "./destino-viaje/destino-viaje.component";
@@ -64,10 +65,13 @@ const reducersInitialState = {
     ReactiveFormsModule,
     NgRxStoreModule.forRoot(reducers, { 
       initialState: reducersInitialState,
-      runtimeChecks: {
+      runtimeChecks: { //Con esto no me da el error de los tipos de actions
         strictActionImmutability: false,
         strictStateImmutability: false
-      }
+      }      
+    },),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
     }),
     EffectsModule.forRoot([DestinosViajesEffects])
   ],

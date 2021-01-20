@@ -27,7 +27,11 @@ export const initializeDestinosViajesState = () => {
 // Acciones
 export enum DestinosViajesActionTypes {
   NUEVO_DESTINO = '[Destinos Viajes] Nuevo',
-  ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito'
+  ELIMINAR_DESTINO = '[Destinos Viajes] Eliminado',
+  ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
+  VOTE_UP = '[Destinos Viajes] Voto UP',
+  VOTE_DOWN = '[Destinos Viajes] Voto DOWN',
+  RESET_VOTES = '[Destinos Viajes] Reset Votes'
 }
 
 export class NuevoDestinoAction implements Action {
@@ -40,7 +44,28 @@ export class ElegidoFavoritoAction implements Action {
   constructor(public destino: DestinoViaje) {}
 }
 
-export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction;
+export class VoteUpAction implements Action {
+  type = DestinosViajesActionTypes.VOTE_UP;
+  constructor(public destino: DestinoViaje) {}
+} 
+
+export class VoteDownAction implements Action {
+  type = DestinosViajesActionTypes.VOTE_DOWN;
+  constructor(public destino: DestinoViaje) {}
+} 
+
+export class ResetVotesAction implements Action {
+  type = DestinosViajesActionTypes.RESET_VOTES;
+  constructor(public destino: DestinoViaje) {}
+}
+
+export class EliminarDestinoAction implements Action {
+  type = DestinosViajesActionTypes.ELIMINAR_DESTINO;
+  constructor(public destino: DestinoViaje) {}
+} 
+
+export type DestinosViajesActions = 
+  NuevoDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | ResetVotesAction | EliminarDestinoAction;
 
 
 // Reducers
@@ -64,6 +89,24 @@ export function reducerDestinosViajes(
         favorito: fav
       };
     }
+    case DestinosViajesActionTypes.VOTE_UP: {
+      const destino: DestinoViaje = (action as VoteUpAction).destino;
+      destino.votarSi();
+      return { ...state };
+    }
+    case DestinosViajesActionTypes.VOTE_DOWN: {
+      const destino: DestinoViaje = (action as VoteDownAction).destino;
+      destino.votarNo();
+      return { ...state };
+    }
+    case DestinosViajesActionTypes.RESET_VOTES: {
+      state.items.forEach( destino => destino.resetVotes() );
+      return { ...state };
+    }
+    case DestinosViajesActionTypes.ELIMINAR_DESTINO: {
+      // FALTA IMPLEMENTAR
+      return null;
+    }
   }
   return state;
 }
@@ -77,5 +120,6 @@ export class DestinosViajesEffects {
     ofType(DestinosViajesActionTypes.NUEVO_DESTINO),
     map( (action: NuevoDestinoAction) => new ElegidoFavoritoAction(action.destino) )
   );
+  
   constructor(private actions$: Actions) {}
 }

@@ -17,10 +17,23 @@
         </span>
       </li>
     </ul>
+    <div class="votos">
+      <p>Vota</p>
+      <div class="d-flex justify-content-end ">
+        <a href="#" (click)="voteUp()" class="mr-3">
+          <i class="material-icons md-18 btn-success">thumb_up</i>
+        </a>
+        <a href="#" (click)="voteDown()">
+          <i class="material-icons md-18 btn-danger">thumb_down</i>
+        </a>
+      </div>
+      <p>Votos: {{ destino.votes }}</p>
+      <a href="#" (click)="resetVotes()">Reset Votes</a>
+    </div>
     <button class="btn btn-success" (click)="ir()">Ir!</button>
     <span *ngIf="destino.isSelected()">
       <span ngNonBindable>{{ PREFERIDO }}</span>
     </span>
-    <a [routerLink]="['/destino']">Ver Detalle</a>
+    <a [routerLink]="['/destino', destino.id]">Ver Detalle</a>
   </div>
 </div>

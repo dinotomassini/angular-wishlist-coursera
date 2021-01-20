@@ -1,0 +1,5 @@
+redux devtools (para chrome y firefox)
+  git - https://github.com/zalmoxisus/redux-devtools-extension
+  se instala la extension en los navegadores, y despues en la pagina de git dice como intalar en el proyecto y como inicializarlo, despues en el navegador en la consola aparece una console nueva especifica de redux
+
+

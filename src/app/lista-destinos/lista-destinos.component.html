@@ -17,7 +17,7 @@
   <div class="col">
     <div class="card-deck">
       <app-destino-viaje
-        *ngFor="let itemDestino of destinosApiClient.getAll(); let pos = index"
+        *ngFor="let itemDestino of all; let pos = index"
         [destino]="itemDestino"
         [position]="pos + 1"
         (clicked)="elegido($event)"
