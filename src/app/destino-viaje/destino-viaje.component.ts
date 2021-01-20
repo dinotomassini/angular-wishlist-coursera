@@ -10,7 +10,7 @@ import { Store } from "@ngrx/store";
 
 import { AppState } from "../app.module";
 import { DestinoViaje } from "../models/destino-viaje.model";
-import { VoteUpAction, VoteDownAction, ResetVotesAction } from "../models/destino-viajes-state.model";
+import { VoteUpAction, VoteDownAction, ResetVotesAction, EliminarDestinoAction } from "../models/destino-viajes-state.model";
 
 @Component({
   selector: "app-destino-viaje",
@@ -47,5 +47,10 @@ export class DestinoViajeComponent implements OnInit {
   resetVotes() {
     this.store.dispatch(new ResetVotesAction(this.destino));
     return false;
+  }
+
+  eliminar() {
+    this.store.dispatch(new EliminarDestinoAction(this.destino));
+    return false
   }
 }

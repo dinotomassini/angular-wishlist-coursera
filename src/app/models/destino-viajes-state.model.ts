@@ -104,8 +104,12 @@ export function reducerDestinosViajes(
       return { ...state };
     }
     case DestinosViajesActionTypes.ELIMINAR_DESTINO: {
-      // FALTA IMPLEMENTAR
-      return null;
+      const destino: DestinoViaje = (action as EliminarDestinoAction).destino;
+      
+      return {
+        ...state,
+        items: state.items.filter( dest => dest.id !== destino.id )
+      };
     }
   }
   return state;
