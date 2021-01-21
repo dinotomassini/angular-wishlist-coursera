@@ -2,22 +2,28 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from "@ngrx/store";
+import { StoreModule as NgRxStoreModule, ActionReducerMap } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+
+
 import { AppComponent } from "./app.component";
-import { DestinoViajeComponent } from "./destino-viaje/destino-viaje.component";
-import { ListaDestinosComponent } from "./lista-destinos/lista-destinos.component";
-import { DestinoDetalleComponentComponent } from "./destino-detalle-component/destino-detalle-component.component";
-import { FormDestinoViajeComponent } from "./form-destino-viaje/form-destino-viaje.component";
-import { DestinosApiClient } from "./models/destinos-api-client-model";
+import { DestinoViajeComponent } from "./components/destino-viaje/destino-viaje.component";
+import { ListaDestinosComponent } from "./components/lista-destinos/lista-destinos.component";
+import { DestinoDetalleComponent } from "./components/destino-detalle/destino-detalle.component";
+import { FormDestinoViajeComponent } from "./components/form-destino-viaje/form-destino-viaje.component";
+import { DestinosApiClient } from "./models/destinos-api-client.model";
 import { 
   DestinosViajesState, 
   initializeDestinosViajesState,
   reducerDestinosViajes,
   DestinosViajesEffects 
-} from "./models/destino-viajes-state.model";
+} from "./models/destinos-viajes-state.model";
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
+import { UsuarioLogueadoGuard } from "./guards/usuario-logueado/usuario-logueado.guard";
+import { AuthService } from "./services/auth.service";
 
 const routes: Routes = [
   {
@@ -31,8 +37,17 @@ const routes: Routes = [
   },
   {
     path: "destino/:id",
-    component: DestinoDetalleComponentComponent,
+    component: DestinoDetalleComponent,
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [ UsuarioLogueadoGuard ]
+  }
 ];
 
 // redux init
@@ -55,27 +70,31 @@ const reducersInitialState = {
     AppComponent,
     DestinoViajeComponent,
     ListaDestinosComponent,
-    DestinoDetalleComponentComponent,
-    FormDestinoViajeComponent
+    DestinoDetalleComponent,
+    FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes), //registra las rutas
     FormsModule, //agregar un formulario
     ReactiveFormsModule,
+    RouterModule.forRoot(routes), //registra las rutas
     NgRxStoreModule.forRoot(reducers, { 
       initialState: reducersInitialState,
       runtimeChecks: { //Con esto no me da el error de los tipos de actions
         strictActionImmutability: false,
         strictStateImmutability: false
       }      
-    },),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25
     }),
+    StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([DestinosViajesEffects])
   ],
-  providers: [DestinosApiClient],
+  providers: [
+    DestinosApiClient,
+    AuthService,
+    UsuarioLogueadoGuard
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

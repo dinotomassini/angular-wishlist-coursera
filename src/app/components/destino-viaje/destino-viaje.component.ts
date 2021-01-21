@@ -8,9 +8,9 @@ import {
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "../app.module";
-import { DestinoViaje } from "../models/destino-viaje.model";
-import { VoteUpAction, VoteDownAction, ResetVotesAction, EliminarDestinoAction } from "../models/destino-viajes-state.model";
+import { AppState } from "../../app.module";
+import { DestinoViaje } from "../../models/destino-viaje.model";
+import { VoteUpAction, VoteDownAction, ResetVotesAction, EliminarDestinoAction } from "../../models/destinos-viajes-state.model";
 
 @Component({
   selector: "app-destino-viaje",

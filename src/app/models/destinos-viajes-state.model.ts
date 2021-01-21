@@ -26,16 +26,27 @@ export const initializeDestinosViajesState = () => {
 
 // Acciones
 export enum DestinosViajesActionTypes {
+  // INIT_MY_DATA = '[Destinos Viajes] Inicializando Datos',
   NUEVO_DESTINO = '[Destinos Viajes] Nuevo',
   ELIMINAR_DESTINO = '[Destinos Viajes] Eliminado',
   ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
   VOTE_UP = '[Destinos Viajes] Voto UP',
   VOTE_DOWN = '[Destinos Viajes] Voto DOWN',
-  RESET_VOTES = '[Destinos Viajes] Reset Votes'
+  RESET_VOTES = '[Destinos Viajes] Reseteo Votos'
 }
+
+// export class InitMyDataAction implements Action {
+//   type = DestinosViajesActionTypes.INIT_MY_DATA;
+//   constructor(public destinos: string[]) {}
+// }
 
 export class NuevoDestinoAction implements Action {
   type = DestinosViajesActionTypes.NUEVO_DESTINO;
+  constructor(public destino: DestinoViaje) {}
+}
+
+export class EliminarDestinoAction implements Action {
+  type = DestinosViajesActionTypes.ELIMINAR_DESTINO;
   constructor(public destino: DestinoViaje) {}
 }
 
@@ -57,15 +68,10 @@ export class VoteDownAction implements Action {
 export class ResetVotesAction implements Action {
   type = DestinosViajesActionTypes.RESET_VOTES;
   constructor(public destino: DestinoViaje) {}
-}
-
-export class EliminarDestinoAction implements Action {
-  type = DestinosViajesActionTypes.ELIMINAR_DESTINO;
-  constructor(public destino: DestinoViaje) {}
 } 
 
 export type DestinosViajesActions = 
-  NuevoDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | ResetVotesAction | EliminarDestinoAction;
+/* InitMyDataAction | */ NuevoDestinoAction | EliminarDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | ResetVotesAction;
 
 
 // Reducers
@@ -74,15 +80,30 @@ export function reducerDestinosViajes(
   action: DestinosViajesActions
 ): DestinosViajesState {
   switch (action.type) {
+    // case DestinosViajesActionTypes.INIT_MY_DATA: {
+    //   const destinos: string[] = (action as InitMyDataAction).destinos;
+    //   return {
+    //     ...state,
+    //     items: destinos.map( (dest) => new DestinoViaje(dest, '') )
+    //   };
+    // }
     case DestinosViajesActionTypes.NUEVO_DESTINO: {
       return {
         ...state,
         items: [...state.items, (action as NuevoDestinoAction).destino]
       };
     }
+    case DestinosViajesActionTypes.ELIMINAR_DESTINO: {
+      const destino: DestinoViaje = (action as EliminarDestinoAction).destino; 
+      return {
+        ...state,
+        items: state.items.filter( dest => dest.id !== destino.id ),
+        favorito: (state.favorito.id === destino.id) ? null : state.favorito
+      };
+    }
     case DestinosViajesActionTypes.ELEGIDO_FAVORITO: {
       state.items.forEach( destino => destino.setSelected(false) );
-      let fav: DestinoViaje = (action as ElegidoFavoritoAction).destino;
+      const fav: DestinoViaje = (action as ElegidoFavoritoAction).destino;
       fav.setSelected(true);
       return {
         ...state,
@@ -102,14 +123,6 @@ export function reducerDestinosViajes(
     case DestinosViajesActionTypes.RESET_VOTES: {
       state.items.forEach( destino => destino.resetVotes() );
       return { ...state };
-    }
-    case DestinosViajesActionTypes.ELIMINAR_DESTINO: {
-      const destino: DestinoViaje = (action as EliminarDestinoAction).destino;
-      
-      return {
-        ...state,
-        items: state.items.filter( dest => dest.id !== destino.id )
-      };
     }
   }
   return state;

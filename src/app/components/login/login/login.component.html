@@ -1,0 +1,25 @@
+<form class="form-inline" *ngIF="!authService.getUser()">
+  <div class="form-group">
+    <label for="username">User: (ingresa <em>user</em>)</label>
+    <input type="text" class="form-control" name="username" #username>
+  </div>
+  <div class="form-group">
+    <label for="password">Password: (ingresa <em>pass</em>)</label>
+    <input type="password" class="form-control" name="password" #password>
+  </div>
+  <a 
+    href="#" 
+    class="btn btn-primary" 
+    (click)="login(username.value, password.value)"
+  >Entrar!</a>
+  {{ mensajeError }}
+</form>
+<a 
+  href="#" 
+  class="btn btn-primary" 
+  (click)="logout()" 
+  *ngIF="authService.getUser()"
+>Salir!</a>
+<!-- 
+  Si no esta logueada muestra el formulario , pero si esta logueado solo muestra el boton para salir 
+-->

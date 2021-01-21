@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import { AppState } from "../app.module";
-import { ElegidoFavoritoAction, NuevoDestinoAction } from "../models/destino-viajes-state.model";
-import { DestinoViaje } from "../models/destino-viaje.model";
-import { DestinosApiClient } from "./../models/destinos-api-client-model";
+import { AppState } from "../../app.module";
+import { DestinoViaje } from "../../models/destino-viaje.model";
+import { DestinosApiClient } from "../../models/destinos-api-client.model";
 
 @Component({
   selector: "app-lista-destinos",
@@ -18,7 +17,10 @@ export class ListaDestinosComponent implements OnInit {
 
   //destinos: DestinoViaje[];
 
-  constructor(public destinosApiClient: DestinosApiClient, private store: Store<AppState>) {
+  constructor(
+    public destinosApiClient: DestinosApiClient, 
+    private store: Store<AppState>
+  ) {
     this.onItemAdded = new EventEmitter();
     this.updates = [];
     // this.destinosApiClient.suscribeOnChange( (destino: DestinoViaje) => {
@@ -26,6 +28,7 @@ export class ListaDestinosComponent implements OnInit {
     //     this.updates.push('Se ha elegido a ' + destino.lugar);
     //   }
     // });
+    
     this.store.select( state => state.destinos.favorito )
       .subscribe( data => {
         const fav = data;
@@ -33,19 +36,12 @@ export class ListaDestinosComponent implements OnInit {
           this.updates.push('Se eligió ' + fav.lugar)
         }
       });
-    store.select( state => state.destinos.items)
+
+    this.store.select( state => state.destinos.items)
       .subscribe( items => this.all = items);
   }
 
-  ngOnInit(): void {
-    // this.store.select( state => state.destinos )
-    //   .subscribe( data => {
-    //     const fav = data.favorito;
-    //     if (fav != null) {
-    //       this.updates.push('Se ha elegido a ' + fav.lugar)
-    //     }
-    //   });
-  }
+  ngOnInit(): void {}
 
   // guardar(lugar: string, urlImage: string) {
   //   const newDestino = new DestinoViaje("lugar", "urlImage");

@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 
 import { AppState } from "../app.module";
 import { DestinoViaje } from "./destino-viaje.model";
-import { ElegidoFavoritoAction, NuevoDestinoAction } from "./destino-viajes-state.model";
+import { ElegidoFavoritoAction, NuevoDestinoAction } from "./destinos-viajes-state.model";
 
 @Injectable()
 export class DestinosApiClient {
