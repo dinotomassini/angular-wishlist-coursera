@@ -26,7 +26,7 @@ export const initializeDestinosViajesState = () => {
 
 // Acciones
 export enum DestinosViajesActionTypes {
-  // INIT_MY_DATA = '[Destinos Viajes] Inicializando Datos',
+  INIT_MY_DATA = '[Destinos Viajes] Inicializando Datos',
   NUEVO_DESTINO = '[Destinos Viajes] Nuevo',
   ELIMINAR_DESTINO = '[Destinos Viajes] Eliminado',
   ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
@@ -35,10 +35,10 @@ export enum DestinosViajesActionTypes {
   RESET_VOTES = '[Destinos Viajes] Reseteo Votos'
 }
 
-// export class InitMyDataAction implements Action {
-//   type = DestinosViajesActionTypes.INIT_MY_DATA;
-//   constructor(public destinos: string[]) {}
-// }
+export class InitMyDataAction implements Action {
+  type = DestinosViajesActionTypes.INIT_MY_DATA;
+  constructor(public destinos: string[]) {}
+}
 
 export class NuevoDestinoAction implements Action {
   type = DestinosViajesActionTypes.NUEVO_DESTINO;
@@ -71,7 +71,7 @@ export class ResetVotesAction implements Action {
 } 
 
 export type DestinosViajesActions = 
-/* InitMyDataAction | */ NuevoDestinoAction | EliminarDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | ResetVotesAction;
+  InitMyDataAction | NuevoDestinoAction | EliminarDestinoAction | ElegidoFavoritoAction | VoteUpAction | VoteDownAction | ResetVotesAction;
 
 
 // Reducers
@@ -80,13 +80,13 @@ export function reducerDestinosViajes(
   action: DestinosViajesActions
 ): DestinosViajesState {
   switch (action.type) {
-    // case DestinosViajesActionTypes.INIT_MY_DATA: {
-    //   const destinos: string[] = (action as InitMyDataAction).destinos;
-    //   return {
-    //     ...state,
-    //     items: destinos.map( (dest) => new DestinoViaje(dest, '') )
-    //   };
-    // }
+    case DestinosViajesActionTypes.INIT_MY_DATA: {
+      const destinos: string[] = (action as InitMyDataAction).destinos;
+      return {
+        ...state,
+        items: destinos.map( (dest) => new DestinoViaje(dest, '') )
+      };
+    }
     case DestinosViajesActionTypes.NUEVO_DESTINO: {
       return {
         ...state,

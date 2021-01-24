@@ -3,3 +3,6 @@ redux devtools (para chrome y firefox)
   se instala la extension en los navegadores, y despues en la pagina de git dice como intalar en el proyecto y como inicializarlo, despues en el navegador en la consola aparece una console nueva especifica de redux
 
 
+dexie - para trabajar con indexedDb
+
+ngxtranslate - traducciones

@@ -1,13 +1,34 @@
+
+<div style="float: right;">
+  <select (change)="translate.use($event.target.value)">
+    <option value="es">Español</option>
+    <option value="fr">France</option>
+    <option value="en">English</option>
+  </select>
+</div>
+
 <div class="container">
+  
+  <h1>
+    {{ title }} <b [innerHTML]="'Hola' | translate"></b>
+  </h1>
+
   <div class="conatiner-fluid">
+    
     <div class="navLinks">
       <a [routerLink]="['/home']">Home</a>
-      <a [routerLink]="['/destino']">Detalle</a>
+      <a [routerLink]="['/destino',5]">Detalle</a>
     </div>
+
   </div>
-  <h1 class="text-center">{{ title }}</h1>
+  
+  <h2 class="text-center">
+    <span [innerHTML]="'Bienvenido' | translate"></span>
+    {{ title }}
+  </h2>
 
   <router-outlet></router-outlet>
+
 </div>
 
 <!-- Fecha: {{ time | async }} -->

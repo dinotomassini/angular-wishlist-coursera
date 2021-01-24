@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Inject, forwardRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from "@angular/forms";
 import { fromEvent } from "rxjs";
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { ajax } from 'rxjs/ajax';
 import { DestinoViaje } from "../../models/destino-viaje.model";
+import { AppConfig, APP_CONFIG } from "src/app/app.module";
 
 @Component({
   selector: "app-form-destino-viaje",
@@ -16,7 +17,11 @@ export class FormDestinoViajeComponent implements OnInit {
   minLongitud: number = 5;
   searchResults: string[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    @Inject(forwardRef( () => APP_CONFIG )) private config: AppConfig
+  ) {
+    
     //inicializar
     this.onItemAdded = new EventEmitter();
     //vinculacion con un tag html
@@ -43,10 +48,8 @@ export class FormDestinoViajeComponent implements OnInit {
         filter( text => text.length > 4 ),
         debounceTime(200),
         distinctUntilChanged(),
-        switchMap( () => ajax('/assets/datos.json') )
-      ).subscribe( AjaxResponse => {
-        this.searchResults = AjaxResponse.response;
-      });
+        switchMap( (text: string) => ajax(this.config.apiEndpoint + '/ciudades?q=' + text))
+      ).subscribe( ajaxResponse => this.searchResults = ajaxResponse.response );    
   }
 
   guardar(lugar: string, urlImage: string): boolean {
