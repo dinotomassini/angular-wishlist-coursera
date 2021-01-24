@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 //import { Subject, BehaviorSubject } from "rxjs";
 
 import { AppConfig, AppState, APP_CONFIG, db } from "../app.module";

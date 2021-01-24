@@ -10,6 +10,7 @@ import { flatMap, mergeMap } from "rxjs/operators";
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Dexie } from 'dexie';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 import { AppComponent } from "./app.component";
 import { DestinoViajeComponent } from "./components/destino-viaje/destino-viaje.component";
@@ -225,7 +226,8 @@ const reducersInitialState = {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    NgxMapboxGLModule
   ],
   providers: [
     AuthService,
