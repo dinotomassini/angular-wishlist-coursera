@@ -70,7 +70,7 @@ export class DestinoDetalleComponent implements OnInit {
         data: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
       }
     },
-    versino: 8,
+    version: 8,
     layers: [{
       'id': 'countries',
       'type': 'fill',

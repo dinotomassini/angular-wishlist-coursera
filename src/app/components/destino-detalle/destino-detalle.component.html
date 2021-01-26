@@ -1,17 +1,12 @@
-<hr>
+<div>
+  Detalles del destino: {{ destino.id }}
+</div>
 
-<mgl-map
-  [style]="style"
-  [zoom]="[2]"
-  style="height: 50vh; width: 100vw;"  
->
-  <mgl-marker
-    [lngLat]="[-75.551012, 10.421185]"
-  >
-    <div
-      onclick="alert('hola')"
-      class="marker"
-    >
+<hr>
+<!-- style="height: 49vh; width: 100vw; display: block;" -->
+<mgl-map [style]="style" [zoom]="[2]">
+  <mgl-marker [lngLat]="[-75.551012, 10.421185]">
+    <div onclick="alert('hola')" class="marker">
       Hola mundo!
     </div>
   </mgl-marker>
