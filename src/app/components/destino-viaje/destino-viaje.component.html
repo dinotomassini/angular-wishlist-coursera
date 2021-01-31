@@ -1,4 +1,4 @@
-<div class="card" style="max-width: 20rem">
+<div class="card" style="max-width: 20rem" [@esFavorito]="destino.isSelected() ? 'estadoFavorito' : 'estadoNoFavorito'">
   <div class="card-img">
     <img src="https://placeimg.com/400/280/nature" class="card-img-top" />
     <span class="badge rounded-pill bg-warning">
@@ -20,17 +20,35 @@
     <div class="votos">
       <p>Vota</p>
       <div class="d-flex justify-content-end ">
-        <a href="#" (click)="voteUp()" class="mr-3">
+        <a 
+          href="#" 
+          (click)="voteUp()" 
+          class="mr-3"
+          appTrackerClick
+          data-tracker-tags="destino_vote_up lista_destinos_item"
+        >
           <i class="material-icons md-18 btn-success">thumb_up</i>
         </a>
-        <a href="#" (click)="voteDown()">
+        <a 
+          href="#" 
+          (click)="voteDown()"
+          appTrackerClick
+          data-tracker-tags="destino_vote_down lista_destinos_item"
+        >
           <i class="material-icons md-18 btn-danger">thumb_down</i>
         </a>
       </div>
       <p>Votos: {{ destino.votes }}</p>
       <a href="#" (click)="resetVotes()">Reset Votes</a>
     </div>
-    <button class="btn btn-success" (click)="ir()">Ir!</button>
+    <button 
+      class="btn btn-success" 
+      (click)="ir()"
+      appTrackerClick
+      data-tracker-tags="destino_elegir_favorito lista_destinos_item"
+    >
+      Ir!
+    </button>
     <span *ngIf="destino.isSelected()">
       <span ngNonBindable>{{ PREFERIDO }}</span>
     </span>

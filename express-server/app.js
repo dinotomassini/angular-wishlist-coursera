@@ -2,16 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// let ciudades = [
-//   'Montevideo', 'Honolulu', 'Rocha', 'Barcelona', 'Paris', 'Hawai'
-// ];
-// app.get('/ciudades', (req, res) => {
-//   res.json( 
-//     ciudades.filter( ciudad => {
-//       ciudad.toLowerCase().indexOf( req.query.q.toString().toLowerCase() ) > -1
-//     })
-//   );
-// });
+let ciudades = [
+  'Montevideo', 'Honolulu', 'Rocha', 'Barcelona', 'Paris', 'Hawai'
+];
+app.get('/ciudades', (req, res) => {
+  res.json( 
+    ciudades.filter( ciudad => {
+      ciudad.toLowerCase().indexOf( req.query.q.toString().toLowerCase() ) > -1
+    })
+  );
+});
 
 app.set('port', 3000);
 

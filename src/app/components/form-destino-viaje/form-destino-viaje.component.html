@@ -30,7 +30,7 @@
       placeholder="Ingrese la URL de la imagen"
       [formControl]="fg.controls['urlImage']"
     />
-    <div *ngIf="fg.controls['urlImage'].hasError('required')">Url de la imagen requerido!</div>
+    <!-- <div *ngIf="fg.controls['urlImage'].hasError('required')">Url de la imagen requerido!</div> -->
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary" *ngIf="fg.valid">

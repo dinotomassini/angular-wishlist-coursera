@@ -6,3 +6,4 @@ redux devtools (para chrome y firefox)
 dexie - para trabajar con indexedDb
 
 ngxtranslate - traducciones
+

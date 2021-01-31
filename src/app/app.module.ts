@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Dexie } from 'dexie';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from "./app.component";
 import { DestinoViajeComponent } from "./components/destino-viaje/destino-viaje.component";
@@ -34,6 +35,8 @@ import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuel
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 import { ReservasModule } from './reservas/reservas.module';
 import { DestinoViaje } from "./models/destino-viaje.model";
+import { EspiameDirective } from './espiame.directive';
+import { TrackerClickDirective } from './tracker-click.directive';
 
 
 // dexie db
@@ -126,7 +129,9 @@ class AppLoadService {
   constructor(private store: Store<AppState>, private http: HttpClient) {}
 
   async initializeDestinosViajesState(): Promise<any> {
-    const headers: HttpHeaders = new HttpHeaders({ 'X-API-TOKEN': 'token-seguridad' });
+    const headers: HttpHeaders = new HttpHeaders({ 
+      'X-API-TOKEN': 'token-seguridad'
+    });
     const req = new HttpRequest(
       'GET', 
       `${APP_CONFIG_VALUE.apiEndpoint}/my`, 
@@ -202,7 +207,9 @@ const reducersInitialState = {
     VuelosComponent,
     VuelosMainComponent,
     VuelosMasInfoComponent,
-    VuelosDetalleComponent
+    VuelosDetalleComponent,
+    EspiameDirective,
+    TrackerClickDirective
   ],
   imports: [
     BrowserModule,
@@ -227,7 +234,8 @@ const reducersInitialState = {
         deps: [HttpClient]
       }
     }),
-    NgxMapboxGLModule
+    NgxMapboxGLModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

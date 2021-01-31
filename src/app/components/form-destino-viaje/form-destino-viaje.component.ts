@@ -31,7 +31,7 @@ export class FormDestinoViajeComponent implements OnInit {
         // this.lugarValidator,
         this.lugarValidatorParamtrizable(this.minLongitud)
       ])],
-      urlImage: ["", Validators.required],
+      urlImage: ["" ]//, Validators.required],
     });
 
     //observer de tipeo
