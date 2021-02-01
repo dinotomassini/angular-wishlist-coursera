@@ -9,3 +9,4 @@ ngxtranslate - traducciones
 
 para que funcione la integracion con circleci:
   cambiar la imagen de docker de node de 8 a 12
+
